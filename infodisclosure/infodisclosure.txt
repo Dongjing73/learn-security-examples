@@ -1,3 +1,12 @@
 Briefly explain the vulnerability and why the secure version prevents the vulnerability.
+    A common vulnerability example is SQL Injection, where attackers manipulate SQL queries to access or modify data. Secure prevention involves using parameterized queries, which separate SQL logic from data, preventing attackers from altering the query structure.
 Which CIA property does tampering violate?
+    Tampering violates the Integrity aspect of the CIA triad, as it involves unauthorized alterations to data, undermining its accuracy and reliability.
 What additional security mechanisms can you incorporate?
+    Encryption: Secures data in transit and at rest.
+    Access Control: Limits data and resource access to authorized users.
+    Multi-factor Authentication (MFA): Enhances login security.
+    Regular Audits and Scans: Identifies and mitigates vulnerabilities.
+    User Training: Educates on security best practices.
+    Network Security: Uses firewalls and intrusion detection systems.
+    Data Backup and Recovery: Ensures data can be restored after incidents.

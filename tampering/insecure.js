@@ -7,33 +7,33 @@ const secret = process.argv[2];
 app.use(express.urlencoded({ extended: false }))
 
 app.use(
-  session({
-    secret: `${secret}`,
-    cookie: {
-        httpOnly: true,
-        sameSite: true,
-    },
-    resave: false,
-    saveUninitialized: false
-  })
+    session({
+                secret: `${secret}`,
+                cookie: {
+                    httpOnly: true,
+                    sameSite: true,
+                },
+                resave: false,
+                saveUninitialized: false
+            })
 )
 
 app.post("/sensitive", (req, res) => {
-  if (req.session.user === 'Admin') {
-    req.session.sensitive = 'supersecret';
-    res.send({message: 'Operation successful'});
-  }
-  else {
-    res.send({message: 'Unauthorized Access'});
-  }
+    if (req.session.user === 'Admin') {
+        req.session.sensitive = 'supersecret';
+        res.send({message: 'Operation successful'});
+    }
+    else {
+        res.send({message: 'Unauthorized Access'});
+    }
 })
 
 app.get("/", (req, res) => {
-  let name = "Guest"
+    let name = "Guest"
 
-  if (req.session.user) name = req.session.user
+    if (req.session.user) name = req.session.user
 
-  res.send(`
+    res.send(`
   <h1>Welcome, ${name}</h1>
   <form action="/register" method="POST">
     <input type="text" name="name" placeholder="Your name">
@@ -46,16 +46,16 @@ app.get("/", (req, res) => {
 })
 
 app.post("/register", (req, res) => {
-  // name = req.body.name.trim()
-  // res.redirect("/")
-  req.session.user = req.body.name.trim()
-  res.send(`<p>Thank you</p> <a href="/">Back home</a>`)
+    // name = req.body.name.trim()
+    // res.redirect("/")
+    req.session.user = req.body.name.trim()
+    res.send(`<p>Thank you</p> <a href="/">Back home</a>`)
 })
 
 app.post("/forget", (req, res) => {
-  req.session.destroy(err => {
-    res.redirect("/")
-  })
+    req.session.destroy(err => {
+        res.redirect("/")
+    })
 })
 
 app.listen(8000)

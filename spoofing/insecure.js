@@ -4,13 +4,14 @@ const session = require("express-session")
 const app = express();
 app.use(express.urlencoded({ extended: false }))
 
+// middelware
 app.use(
-  session({
-    secret: "SOMESECRET",
-    cookie: {httpOnly: false},
-    resave: false,
-    saveUninitialized: false
-  })
+    session({
+              secret: "SOMESECRET",
+              cookie: {httpOnly: false},
+              resave: false,
+              saveUninitialized: false
+            })
 )
 
 app.post("/sensitive", (req, res) => {
