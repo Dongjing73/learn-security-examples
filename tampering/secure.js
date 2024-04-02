@@ -7,33 +7,33 @@ const secret = process.argv[2];
 app.use(express.urlencoded({ extended: false }))
 
 app.use(
-  session({
-    secret: `${secret}`,
-    cookie: {
-        httpOnly: true,
-        sameSite: true,
-    },
-    resave: false,
-    saveUninitialized: false
-  })
+    session({
+                secret: `${secret}`,
+                cookie: {
+                    httpOnly: true,
+                    sameSite: true,
+                },
+                resave: false,
+                saveUninitialized: false
+            })
 )
 
 app.post("/sensitive", (req, res) => {
-  if (req.session.user === 'Admin') {
-    req.session.sensitive = 'supersecret';
-    res.send({message: 'Operation successful'});
-  }
-  else {
-    res.send({message: 'Unauthorized Access'});
-  }
+    if (req.session.user === 'Admin') {
+        req.session.sensitive = 'supersecret';
+        res.send({message: 'Operation successful'});
+    }
+    else {
+        res.send({message: 'Unauthorized Access'});
+    }
 })
 
 app.get("/", (req, res) => {
-  let name = "Guest"
+    let name = "Guest"
 
-  if (req.session.user) name = req.session.user
+    if (req.session.user) name = req.session.user
 
-  res.send(`
+    res.send(`
   <h1>Welcome, ${name}</h1>
   <form action="/register" method="POST">
     <input type="text" name="name" placeholder="Your name">
@@ -46,20 +46,21 @@ app.get("/", (req, res) => {
 })
 
 app.post("/register", (req, res) => {
-  const sanitizedName = escapeHTML(req.body.name.trim());
-  req.session.user = sanitizedName;
-  res.send(`<p>Thank you</p> <a href="/">Back home</a>`)
+    const sanitizedName = escapeHTML(req.body.name.trim());
+    req.session.user = sanitizedName;
+    res.send(`<p>Thank you</p> <a href="/">Back home</a>`)
 })
 
 app.post("/forget", (req, res) => {
-  req.session.destroy(err => {
-    res.redirect("/")
-  })
+    req.session.destroy(err => {
+        res.redirect("/")
+    })
 })
 
 app.listen(8000);
 
 // Function to HTML escape user input
 function escapeHTML(input) {
-  return input.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    return input.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }

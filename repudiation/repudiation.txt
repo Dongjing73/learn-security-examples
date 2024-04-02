@@ -1,2 +1,6 @@
 - Briefly explain the vulnerability and why the secure version is better at preventing repudiation than the insecure version.
+
+The vulnerability in the insecure version allows any user to modify user roles without proper authentication, posing a risk of unauthorized privilege escalation. In contrast, the secure version employs session-based authentication and authorization checks to ensure only authorized users, particularly administrators, can make role changes. This approach enhances accountability and prevents repudiation of actions by accurately attributing them to authenticated users, thereby bolstering overall security.
 - What additional security mechanisms can you incorporate to prevent such attacks?
+
+To prevent privilege escalation, deploy Role-based Access Control (RBAC), Audit Logs, Two-Factor Authentication (2FA), Input Validation, Rate Limiting, and Secure Session Management. These measures enforce strict access controls, track critical actions, add extra authentication layers, validate inputs, limit abuse, and secure session handling, collectively fortifying defenses and mitigating the risk of unauthorized access.
